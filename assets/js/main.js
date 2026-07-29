@@ -135,6 +135,7 @@
     const SVG_NS = 'http://www.w3.org/2000/svg';
     const style = svgDoc.createElementNS(SVG_NS, 'style');
     style.textContent = `
+      svg { overflow: hidden; width: 100%; height: 100%; }
       path[id^="US"] { fill: #E8E1D6 !important; transition: fill 0.18s ease; stroke: #FFFFFF; stroke-width: 0.4; }
       path[id="USTX"], path[id="USOK"], path[id="USLA"],
       path[id="USMS"], path[id="USCO"], path[id="USFL"] { fill: #A6432A !important; stroke: #FBF8F3 !important; stroke-width: 0.8 !important; }
