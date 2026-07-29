@@ -105,4 +105,35 @@
       g.addEventListener('mouseleave', function () { label.style.fill = 'var(--c-cream)'; });
     }
   });
+
+  /* ---------- Recolor US map SVG once loaded ----------
+     The Simplemaps SVG uses fill="#6f9c76" for all states. After load,
+     inject a <style> tag that recolors non-covered states to muted bone,
+     and covered states (TX, OK, LA, MS, CO, FL) to the brand rust.
+     Hovering covered states brightens to clay.
+  -------------------------------------------------------- */
+  const COVERED = new Set(['USTX', 'USOK', 'USLA', 'USMS', 'USCO', 'USFL']);
+
+  function recolorMap(svgDoc, host) {
+    if (!svgDoc) return;
+    const style = svgDoc.createElementNS('http://www.w3.org/2000/svg', 'style');
+    style.textContent = `
+      path[id^="US"] { fill: #E8E1D6 !important; transition: fill 0.15s ease; }
+      path[id="USTX"], path[id="USOK"], path[id="USLA"],
+      path[id="USMS"], path[id="USCO"], path[id="USFL"] { fill: #A6432A !important; stroke: #FBF8F3 !important; stroke-width: 0.8 !important; }
+      path[id="USTX"]:hover, path[id="USOK"]:hover, path[id="USLA"]:hover,
+      path[id="USMS"]:hover, path[id="USCO"]:hover, path[id="USFL"]:hover { fill: #C97C5D !important; }
+      path[id="USAK"] { fill: #D9D0C2 !important; opacity: 0.4; }
+    `;
+    const svgRoot = svgDoc.documentElement;
+    svgRoot.insertBefore(style, svgRoot.firstChild);
+    host.classList.add('us-map-loaded');
+  }
+
+  document.querySelectorAll('object.us-map-object').forEach(function (obj) {
+    obj.addEventListener('load', function () {
+      try { recolorMap(obj.contentDocument, obj.parentElement); }
+      catch (e) { /* cross-origin or not loaded — fall back to default fill */ }
+    });
+  });
 })();

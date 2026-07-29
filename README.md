@@ -137,6 +137,65 @@ Photos needed:
 - Owner portrait — for the About page
 - Optional: jobsite, dealer counter, or multi-family build photos for category cards
 
+---
+
+## Brand Asset Permission Workflow
+
+**Why this matters.** Manufacturer logos are trademarked assets. Using them on a rep agency site without permission is technically trademark infringement in most jurisdictions, and could damage the relationship with the brands you represent. Photos are even more restrictive — the photographer retains copyright even when the brand commissions the shoot.
+
+**The right path:** Email each manufacturer and ask. Most say yes within a week.
+
+### Email Template
+
+Subject: Permission to use [Brand] logo on our line card page
+
+> Hi [Brand team / Marketing],
+>
+> We're an independent sales rep agency representing your line in Texas, Oklahoma, Louisiana, Mississippi, Colorado, and Florida. Our line card page is here: https://www.traditionsales.com/line-card.html
+>
+> We'd like to feature your logo on that page (linked to your site) to give dealers and builders a quick way to confirm we represent you. May we have permission?
+>
+> If yes, the easiest path is to reply with your official logo file (SVG or transparent PNG, ideally 400px+ wide) or point me to a media kit / press page.
+>
+> If you'd prefer we don't use the logo, no problem — we'll list your brand by name only.
+>
+> Thanks,
+> David Sombrio
+> Tradition Sales
+
+### Brand Asset Matrix
+
+| Brand | Logo slot | Permission status | Action |
+|-------|-----------|-------------------|--------|
+| ETO Doors | `assets/img/brands/eto-doors.svg` | Pending | Email request |
+| Homefit Builder Supply | `assets/img/brands/homefit.svg` | Pending | Email request |
+| American Flashings | `assets/img/brands/american-flashings.svg` | Pending | Email request |
+| Quarrix | `assets/img/brands/quarrix.svg` | Pending | Email request |
+| Allora USA | `assets/img/brands/allora.svg` | Pending | Email request |
+| Amerfit | `assets/img/brands/amerfit.svg` | Pending | Email request |
+| Silverline Hardware | `assets/img/brands/silverline.svg` | Pending | Email request |
+| Lindsay Windows | (text only on line-card.html) | No permission sought | Keep text-only |
+| Worldwide Door Components | (text only on line-card.html) | No permission sought | Keep text-only |
+| ClosetMaid Pro | (text only on line-card.html) | No permission sought | Keep text-only |
+
+### Asset Spec
+
+When brands reply with assets, save to the path above and delete the placeholder SVG.
+
+- **Format:** SVG preferred. PNG with transparent background acceptable.
+- **Min size:** 400px wide for PNG. SVG scales freely.
+- **Color space:** RGB (web).
+- **Naming:** Keep the existing filename (e.g., `eto-doors.svg`) so HTML doesn't break.
+
+### Photo Sources (licensed only)
+
+For hero, rep headshots, owner portrait, and category photos:
+
+1. **Brand-supplied** — ask the same emails above for marketing photos. Many brands have dealer- or rep-licensed photo libraries.
+2. **Self-shot** — hire a local photographer for a half-day jobsite shoot. Strongest option.
+3. **Stock** — Adobe Stock, Getty Images, Shutterstock with proper license. Verify the license covers rep-agency commercial use. Unsplash is free but **read the license**: most Unsplash photos allow commercial use but not standalone redistribution, which is fine for a website.
+4. **Never scrape** brand websites, Google Images, or social media. The photos are copyrighted even without a visible watermark.
+
 ### 7. Performance + Security
 
 - All fonts loaded from Google Fonts via `<link rel="preconnect">` for speed.

@@ -129,35 +129,19 @@
     </p>
 
     <div class="coverage-map-wrap">
-      <svg viewBox="0 0 960 600" class="us-map" xmlns="http://www.w3.org/2000/svg">
-        <g class="map-other" fill="#E8E1D6" stroke="#C9BFAE" stroke-width="1">
-          <path d="M120,180 L160,170 L210,165 L260,160 L320,150 L380,145 L450,140 L520,140 L600,145 L680,150 L760,160 L820,170 L860,185 L850,220 L840,260 L820,300 L800,340 L780,380 L760,410 L730,440 L690,460 L640,470 L580,475 L520,470 L460,460 L400,450 L340,440 L280,425 L230,400 L190,370 L160,330 L140,290 L125,240 Z" />
-        </g>
-        <g class="map-state">
-          <path d="M380,360 L420,355 L460,360 L490,380 L500,410 L490,440 L470,460 L450,470 L420,475 L390,470 L370,455 L360,430 L365,400 L375,375 Z" />
-          <text x="420" y="430" class="map-label">TX</text>
-        </g>
-        <g class="map-state">
-          <path d="M420,310 L470,305 L510,310 L505,345 L470,355 L425,350 L420,330 Z" />
-          <text x="455" y="333" class="map-label">OK</text>
-        </g>
-        <g class="map-state">
-          <path d="M510,400 L540,395 L555,415 L548,445 L535,470 L515,475 L505,455 L508,425 Z" />
-          <text x="525" y="438" class="map-label">LA</text>
-        </g>
-        <g class="map-state">
-          <path d="M560,360 L585,358 L592,395 L585,430 L575,440 L562,425 L558,395 Z" />
-          <text x="572" y="398" class="map-label">MS</text>
-        </g>
-        <g class="map-state">
-          <path d="M260,270 L300,265 L320,275 L325,310 L320,345 L290,355 L255,350 L250,320 L255,290 Z" />
-          <text x="285" y="312" class="map-label">CO</text>
-        </g>
-        <g class="map-state">
-          <path d="M720,440 L760,435 L790,450 L800,475 L790,500 L775,520 L755,510 L745,490 L730,470 Z" />
-          <text x="760" y="478" class="map-label">FL</text>
-        </g>
-      </svg>
+      <div class="us-map-wrap">
+        <object id="us-map-object-team" type="image/svg+xml" data="assets/img/map/us-states.svg" aria-label="United States map with covered states highlighted" class="us-map-object"></object>
+        <div class="map-pin map-pin-tx" data-state="TX">TX</div>
+        <div class="map-pin map-pin-ok" data-state="OK">OK</div>
+        <div class="map-pin map-pin-la" data-state="LA">LA</div>
+        <div class="map-pin map-pin-ms" data-state="MS">MS</div>
+        <div class="map-pin map-pin-co" data-state="CO">CO</div>
+        <div class="map-pin map-pin-fl" data-state="FL">FL</div>
+      </div>
+      <div class="map-legend">
+        <span class="map-legend-swatch"></span>
+        <span>States we cover</span>
+      </div>
     </div>
   </div>
 </section>
