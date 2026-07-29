@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tradition Sales — From Yard to Home</title>
+<style>
+  :root{
+    --c-rust:#A6432A;
+    --c-rust-soft:#C97C5D;
+    --c-cream:#FBF8F3;
+    --c-bone:#F4EFE8;
+    --c-charcoal:#1F1A17;
+    --c-charcoal-soft:#5A4F47;
+    --c-line:#E4DCD0;
+    --c-roof:#4A3F36;
+    --c-window-frame:#FBF8F3;
+    --c-tape:#D8C9A8;
+    --c-lumber:#C49A6C;
+    --c-lumber-dark:#8B6840;
+    --c-shingle:#3D3530;
+    --ease-out: cubic-bezier(.16,.84,.44,1);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--c-cream);color:var(--c-charcoal);font-family:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+
+  .container{max-width:1100px;margin:0 auto;padding:0 24px}
+
+  /* ── HEADER ─────────────────────────────────── */
+  header{background:var(--c-charcoal);color:var(--c-cream);padding:64px 0 56px}
+  header .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--c-rust-soft);font-weight:600;margin-bottom:18px}
+  header h1{font-family:Georgia,'Fraunces',serif;font-weight:500;font-size:clamp(36px,5vw,56px);line-height:1.05;margin:0 0 18px;max-width:760px}
+  header h1 em{font-style:italic;color:var(--c-rust-soft)}
+  header p{font-size:18px;line-height:1.55;max-width:620px;color:rgba(251,248,243,.78);margin:0}
+
+  /* ── STAGES ─────────────────────────────────── */
+  .stages{display:grid;grid-template-columns:1fr;gap:120px;padding:120px 0 160px;position:relative}
+
+  .stage{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .stage:nth-child(even){direction:rtl}
+  .stage:nth-child(even) > *{direction:ltr}
+
+  @media (max-width:780px){
+    .stages{gap:80px;padding:80px 0}
+    .stage,.stage:nth-child(even){grid-template-columns:1fr;direction:ltr}
+  }
+
+  .stage-meta{position:relative}
+  .stage-num{font-family:Georgia,serif;font-style:italic;font-size:14px;color:var(--c-rust);letter-spacing:.06em;margin-bottom:14px}
+  .stage-num span{display:inline-block;width:36px;height:1px;background:var(--c-rust);vertical-align:middle;margin-right:10px}
+  .stage-title{font-family:Georgia,'Fraunces',serif;font-weight:500;font-size:clamp(26px,3.2vw,34px);line-height:1.15;margin:0 0 16px}
+  .stage-body{font-size:16px;line-height:1.6;color:var(--c-charcoal-soft);max-width:380px;margin:0 0 24px}
+  .stage-tag{display:inline-block;padding:6px 14px;background:var(--c-bone);border:1px solid var(--c-line);border-radius:999px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--c-charcoal);font-weight:500}
+
+  /* ── STAGE SCENE (animation canvas) ─────────── */
+  .scene{
+    position:relative;
+    width:100%;
+    aspect-ratio:5/4;
+    background:var(--c-bone);
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 1px 0 var(--c-line), 0 30px 60px -30px rgba(31,26,23,.15);
+  }
+  .scene::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 60%,rgba(31,26,23,.04) 100%);
+    pointer-events:none;
+  }
+
+  /* ── SHARED HOUSE SILHOUETTE ───────────────── */
+  .house{position:absolute;inset:0}
+  .house svg{position:absolute;inset:0;width:100%;height:100%}
+
+  /* ── STAGE 1: LUMBER BUNDLE ────────────────── */
+  .bundle{
+    position:absolute;
+    left:50%;bottom:18%;
+    transform:translateX(-50%);
+    width:62%;height:48%;
+    display:flex;align-items:flex-end;justify-content:center;
+  }
+  .plank{
+    position:absolute;
+    bottom:0;
+    width:8%;
+    border-radius:2px 2px 0 0;
+    transform-origin:bottom center;
+    opacity:0;
+    transform:translateY(20px) rotate(var(--rot,0deg));
+  }
+  /* lay planks out in a stack */
+  .plank:nth-child(1){left:8%;height:62%;background:var(--c-lumber-dark);--rot:-1deg;animation:plankIn 1.2s var(--ease-out) .1s forwards}
+  .plank:nth-child(2){left:18%;height:74%;background:var(--c-lumber);--rot:.8deg;animation:plankIn 1.2s var(--ease-out) .25s forwards}
+  .plank:nth-child(3){left:28%;height:68%;background:var(--c-lumber-dark);--rot:-.5deg;animation:plankIn 1.2s var(--ease-out) .4s forwards}
+  .plank:nth-child(4){left:38%;height:80%;background:var(--c-lumber);--rot:.4deg;animation:plankIn 1.2s var(--ease-out) .55s forwards}
+  .plank:nth-child(5){left:48%;height:72%;background:var(--c-lumber-dark);--rot:-.7deg;animation:plankIn 1.2s var(--ease-out) .7s forwards}
+  .plank:nth-child(6){left:58%;height:78%;background:var(--c-lumber);--rot:.6deg;animation:plankIn 1.2s var(--ease-out) .85s forwards}
+  .plank:nth-child(7){left:68%;height:66%;background:var(--c-lumber-dark);--rot:-.3deg;animation:plankIn 1.2s var(--ease-out) 1s forwards}
+  .plank:nth-child(8){left:78%;height:74%;background:var(--c-lumber);--rot:1deg;animation:plankIn 1.2s var(--ease-out) 1.15s forwards}
+
+  /* horizontal banding on planks */
+  .plank::before{
+    content:'';position:absolute;inset:8% 0;background:
+      linear-gradient(180deg, transparent 0%, transparent 22%, rgba(0,0,0,.08) 22%, rgba(0,0,0,.08) 24%, transparent 24%, transparent 48%, rgba(0,0,0,.08) 48%, rgba(0,0,0,.08) 50%, transparent 50%, transparent 74%, rgba(0,0,0,.08) 74%, rgba(0,0,0,.08) 76%, transparent 76%);
+  }
+  /* banding strap */
+  .plank::after{
+    content:'';position:absolute;left:-12%;right:-12%;top:42%;height:6px;background:var(--c-charcoal);border-radius:1px;
+  }
+
+  .band-tag{
+    position:absolute;
+    left:50%;top:6%;
+    transform:translateX(-50%);
+    background:var(--c-rust);
+    color:var(--c-cream);
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+    padding:7px 14px;border-radius:2px;
+    box-shadow:0 4px 12px rgba(166,67,42,.25);
+    opacity:0;
+    animation:tagIn .8s var(--ease-out) 1.4s forwards;
+  }
+
+  @keyframes plankIn{to{opacity:1;transform:translateY(0) rotate(var(--rot,0deg))}}
+  @keyframes tagIn{to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+  /* ── STAGE 2: WINDOWS & DOORS WRAPPED ──────── */
+  .wrap-scene{position:absolute;inset:0}
+  .wrap-grid{position:absolute;inset:14%;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:14px}
+  .wrap-item{
+    background:var(--c-cream);
+    border:1px solid var(--c-line);
+    border-radius:3px;
+    position:relative;
+    overflow:hidden;
+    opacity:0;
+    transform:scale(.92);
+    animation:wrapIn .9s var(--ease-out) forwards;
+  }
+  .wrap-item:nth-child(1){animation-delay:.1s}
+  .wrap-item:nth-child(2){animation-delay:.3s}
+  .wrap-item:nth-child(3){animation-delay:.5s}
+  .wrap-item:nth-child(4){animation-delay:.7s}
+  /* shrink wrap plastic effect */
+  .wrap-item::before{
+    content:'';position:absolute;inset:0;
+    background:
+      linear-gradient(135deg, transparent 30%, rgba(255,255,255,.4) 50%, transparent 70%),
+      linear-gradient(45deg, transparent 40%, rgba(255,255,255,.25) 60%, transparent 80%);
+    pointer-events:none;
+  }
+  /* tape strips */
+  .wrap-item::after{
+    content:'';position:absolute;
+    left:50%;top:50%;width:160%;height:14px;
+    transform:translate(-50%,-50%) rotate(-8deg);
+    background:var(--c-tape);
+    box-shadow:0 1px 2px rgba(0,0,0,.1);
+  }
+  /* window/door inside */
+  .wrap-item .item-shape{
+    position:absolute;inset:14%;
+    background:var(--c-window-frame);
+    border:1.5px solid var(--c-charcoal);
+  }
+  .wrap-item.door .item-shape{border-radius:0 0 30% 30% / 0 0 18% 18%}
+  .wrap-item.door-tall .item-shape{inset:8% 25%;border-radius:3px}
+  .wrap-item.window .item-shape{
+    background:
+      linear-gradient(var(--c-charcoal),var(--c-charcoal)) center/100% 1.5px no-repeat,
+      linear-gradient(var(--c-charcoal),var(--c-charcoal)) center/1.5px 100% no-repeat,
+      var(--c-window-frame);
+  }
+  .wrap-item.window-tall .item-shape{
+    background:
+      linear-gradient(var(--c-charcoal),var(--c-charcoal)) center/1.5px 100% no-repeat,
+      linear-gradient(var(--c-charcoal),var(--c-charcoal)) 50% 35%/100% 1.5px no-repeat,
+      var(--c-window-frame);
+  }
+
+  @keyframes wrapIn{to{opacity:1;transform:scale(1)}}
+
+  /* ── STAGE 3: ROOFING ──────────────────────── */
+  .roof-scene{position:absolute;inset:0}
+  .roof-frame{
+    position:absolute;
+    left:50%;bottom:18%;
+    transform:translateX(-50%);
+    width:74%;height:62%;
+  }
+  .roof-shape{
+    position:absolute;inset:0;
+    background:var(--c-roof);
+    clip-path:polygon(50% 0,100% 100%,0 100%);
+  }
+  .roof-rafters{
+    position:absolute;inset:0;
+    background:
+      repeating-linear-gradient(90deg, transparent 0 14.2%, rgba(0,0,0,.35) 14.2% 14.8%);
+    clip-path:polygon(50% 0,100% 100%,0 100%);
+    transform:translateY(20px);
+    opacity:0;
+    animation:rafterIn .8s var(--ease-out) .1s forwards;
+  }
+  /* shingles falling */
+  .shingle{
+    position:absolute;
+    left:var(--x,50%);
+    top:-10%;
+    width:14%;height:8%;
+    background:var(--c-shingle);
+    border-radius:1px;
+    opacity:0;
+    transform:translateY(0);
+    animation:shingleDrop 1.4s var(--ease-out) forwards;
+  }
+  .shingle:nth-child(1){--x:8%;animation-delay:.5s}
+  .shingle:nth-child(2){--x:20%;animation-delay:.65s}
+  .shingle:nth-child(3){--x:32%;animation-delay:.8s}
+  .shingle:nth-child(4){--x:44%;animation-delay:.95s}
+  .shingle:nth-child(5){--x:56%;animation-delay:1.1s}
+  .shingle:nth-child(6){--x:68%;animation-delay:1.25s}
+  .shingle:nth-child(7){--x:80%;animation-delay:1.4s}
+
+  /* completed roof reveal */
+  .roof-done{
+    position:absolute;inset:0;
+    background:
+      repeating-linear-gradient(90deg, transparent 0 14.2%, rgba(255,255,255,.04) 14.2% 14.8%),
+      repeating-linear-gradient(0deg, transparent 0 9%, rgba(0,0,0,.3) 9% 9.6%),
+      linear-gradient(180deg,#4A3F36,#2E2622);
+    clip-path:polygon(50% 0,100% 100%,0 100%);
+    opacity:0;
+    animation:roofDone 1s var(--ease-out) 2s forwards;
+  }
+
+  @keyframes rafterIn{to{transform:translateY(0);opacity:1}}
+  @keyframes shingleDrop{
+    0%{transform:translateY(0);opacity:0}
+    20%{opacity:1}
+    100%{transform:translateY(420%);opacity:1}
+  }
+  @keyframes roofDone{to{opacity:1}}
+
+  /* ── STAGE 4: INTERIOR FIXTURES ────────────── */
+  .int-scene{position:absolute;inset:0}
+  .int-room{
+    position:absolute;
+    left:50%;top:50%;
+    transform:translate(-50%,-50%);
+    width:78%;height:72%;
+    background:var(--c-cream);
+    border:1.5px solid var(--c-charcoal);
+    border-radius:2px;
+    overflow:hidden;
+  }
+  /* floor */
+  .int-room::before{
+    content:'';position:absolute;left:0;right:0;bottom:0;height:32%;
+    background:
+      repeating-linear-gradient(90deg, var(--c-lumber) 0 16%, var(--c-lumber-dark) 16% 17%, var(--c-lumber) 17% 33%, var(--c-lumber-dark) 33% 34%);
+  }
+  /* back wall */
+  .int-room::after{
+    content:'';position:absolute;left:0;right:0;top:0;height:68%;
+    background:var(--c-bone);
+  }
+
+  /* fixture slots */
+  .fixture{
+    position:absolute;
+    opacity:0;
+    transform:translateY(8px);
+    animation:fixIn .7s var(--ease-out) forwards;
+  }
+  /* shower/fixtures on back wall */
+  .fx-shower{left:8%;top:14%;width:22%;height:46%;animation-delay:.4s}
+  .fx-vanity{left:34%;top:30%;width:18%;height:24%;animation-delay:.55s}
+  .fx-faucet{left:62%;top:34%;width:18%;height:18%;animation-delay:.7s}
+  .fx-hardware{left:8%;top:66%;width:84%;height:8%;animation-delay:.85s}
+
+  .fx-shower svg, .fx-vanity svg, .fx-faucet svg, .fx-hardware svg{width:100%;height:100%}
+
+  @keyframes fixIn{to{opacity:1;transform:translateY(0)}}
+
+  /* ── STAGE 5 (FINAL): FINISHED HOME ─────────── */
+  .final-scene{position:absolute;inset:0}
+  .final-house{
+    position:absolute;
+    left:50%;bottom:14%;
+    transform:translateX(-50%);
+    width:72%;height:74%;
+  }
+  .fh-roof{
+    position:absolute;left:50%;top:0;
+    transform:translateX(-50%);
+    width:80%;height:36%;
+    background:
+      repeating-linear-gradient(90deg, transparent 0 16.6%, rgba(0,0,0,.25) 16.6% 17%),
+      repeating-linear-gradient(0deg, transparent 0 11%, rgba(0,0,0,.2) 11% 11.4%),
+      var(--c-roof);
+    clip-path:polygon(50% 0,100% 100%,0 100%);
+  }
+  .fh-body{
+    position:absolute;left:0;right:0;bottom:0;height:64%;
+    background:var(--c-cream);
+    border:1.5px solid var(--c-charcoal);
+    border-bottom:none;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    grid-template-rows:repeat(2,1fr);
+    gap:6%;
+    padding:8% 7%;
+  }
+  .fh-window{
+    background:
+      linear-gradient(var(--c-charcoal),var(--c-charcoal)) center/100% 1.5px no-repeat,
+      linear-gradient(var(--c-charcoal),var(--c-charcoal)) center/1.5px 100% no-repeat,
+      var(--c-bone);
+    border:1.5px solid var(--c-charcoal);
+    border-radius:1px;
+  }
+  .fh-door{
+    grid-column:span 2;
+    background:var(--c-charcoal);
+    border-radius:2px 2px 0 0;
+    position:relative;
+  }
+  .fh-door::after{
+    content:'';position:absolute;right:14%;top:45%;width:6%;height:6%;border-radius:50%;background:var(--c-rust);
+  }
+  .fh-window:first-child{border-radius:8px 8px 50% 50% / 8px 8px 30% 30%}
+
+  /* sparkles / "finished" badges */
+  .badge-row{
+    position:absolute;bottom:6%;left:50%;transform:translateX(-50%);
+    display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:90%;
+  }
+  .badge{
+    background:var(--c-charcoal);color:var(--c-cream);
+    font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;
+    padding:5px 10px;border-radius:999px;
+    opacity:0;
+    animation:badgeIn .6s var(--ease-out) forwards;
+  }
+  .badge:nth-child(1){animation-delay:.3s}
+  .badge:nth-child(2){animation-delay:.45s}
+  .badge:nth-child(3){animation-delay:.6s}
+  .badge:nth-child(4){animation-delay:.75s}
+  .badge:nth-child(5){animation-delay:.9s}
+  .badge:nth-child(6){animation-delay:1.05s}
+
+  @keyframes badgeIn{to{opacity:1}}
+
+  /* ── SCROLL-DRIVEN TRIGGER (optional) ───────── */
+  /* Browsers with scroll-driven animations re-run the loops when the scene enters viewport.
+     We default to "play once on load" for Squarespace compatibility — the visuals stay visible
+     because they're persistent illustrations. Reduced-motion users get static visuals. */
+
+  /* ── REDUCED MOTION ─────────────────────────── */
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{
+      animation-duration:.001ms !important;
+      animation-delay:0ms !important;
+      animation-iteration-count:1 !important;
+    }
+    .plank,.band-tag,.wrap-item,.shingle,.fixture,.badge,.roof-rafters,.roof-done{
+      opacity:1 !important;
+      transform:none !important;
+    }
+  }
+
+  /* ── FOOTER CTA ─────────────────────────────── */
+  .cta-band{
+    background:var(--c-charcoal);color:var(--c-cream);
+    padding:80px 0;
+    text-align:center;
+  }
+  .cta-band h2{
+    font-family:Georgia,'Fraunces',serif;font-weight:500;
+    font-size:clamp(28px,3.6vw,40px);line-height:1.15;margin:0 0 18px;
+  }
+  .cta-band h2 em{color:var(--c-rust-soft);font-style:italic}
+  .cta-band p{max-width:520px;margin:0 auto 28px;color:rgba(251,248,243,.78);font-size:16px;line-height:1.55}
+  .cta-band a{
+    display:inline-block;padding:14px 28px;background:var(--c-rust);color:var(--c-cream);
+    text-decoration:none;font-weight:600;font-size:14px;letter-spacing:.08em;text-transform:uppercase;
+    border-radius:4px;
+  }
+  .cta-band a:hover{background:#8E3725}
+
+  footer{padding:32px 0;text-align:center;color:var(--c-charcoal-soft);font-size:13px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="eyebrow">From Yard to Home</div>
+    <h1>Every product we represent, <em>in its place.</em></h1>
+    <p>A bundle of lumber on a Monday becomes a finished home by the end of the season. Here's how the brands we sell fit into the build — in order, on the jobsite.</p>
+  </div>
+</header>
+
+<main>
+<div class="container">
+  <div class="stages">
+
+    <!-- ─── STAGE 1: LUMBER ────────────────── -->
+    <article class="stage">
+      <div class="stage-meta">
+        <div class="stage-num"><span></span>Stage 01 · The Yard</div>
+        <h2 class="stage-title">Lumber hits the lot.</h2>
+        <p class="stage-body">It starts at the yard — studs, plates, headers, the structural kit. Banded, stacked, ready to ship. The first call your dealer makes.</p>
+        <span class="stage-tag">Lumber &amp; framing</span>
+      </div>
+      <div class="scene">
+        <div class="bundle">
+          <div class="plank"></div><div class="plank"></div><div class="plank"></div><div class="plank"></div>
+          <div class="plank"></div><div class="plank"></div><div class="plank"></div><div class="plank"></div>
+        </div>
+        <div class="band-tag">From the yard</div>
+      </div>
+    </article>
+
+    <!-- ─── STAGE 2: WINDOWS / DOORS WRAPPED ── -->
+    <article class="stage">
+      <div class="stage-meta">
+        <div class="stage-num"><span></span>Stage 02 · The Wrap</div>
+        <h2 class="stage-title">Windows &amp; doors, sealed tight.</h2>
+        <p class="stage-body">Every entry door, patio door, and window leaves the shop shrink-wrapped and taped. They arrive on-site ready to set — no scuffs, no surprises.</p>
+        <span class="stage-tag">Windows · Doors · Components</span>
+      </div>
+      <div class="scene">
+        <div class="wrap-scene">
+          <div class="wrap-grid">
+            <div class="wrap-item window"><div class="item-shape"></div></div>
+            <div class="wrap-item door-tall"><div class="item-shape"></div></div>
+            <div class="wrap-item window-tall"><div class="item-shape"></div></div>
+            <div class="wrap-item door"><div class="item-shape"></div></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ─── STAGE 3: ROOFING ─────────────────── -->
+    <article class="stage">
+      <div class="stage-meta">
+        <div class="stage-num"><span></span>Stage 03 · The Roof</div>
+        <h2 class="stage-title">Shingles go on. Weather stays out.</h2>
+        <p class="stage-body">Underlayment, flashing, ridge, shingle — the order matters. Roof armor, roof accessories, the things that decide whether a house stays dry for the next 30 years.</p>
+        <span class="stage-tag">Roofing · Ventilation · Flashing</span>
+      </div>
+      <div class="scene">
+        <div class="roof-scene">
+          <div class="roof-frame">
+            <div class="roof-rafters"></div>
+            <div class="roof-shape"></div>
+            <div class="roof-done"></div>
+            <div class="shingle"></div><div class="shingle"></div><div class="shingle"></div><div class="shingle"></div>
+            <div class="shingle"></div><div class="shingle"></div><div class="shingle"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ─── STAGE 4: INTERIOR ────────────────── -->
+    <article class="stage">
+      <div class="stage-meta">
+        <div class="stage-num"><span></span>Stage 04 · The Interior</div>
+        <h2 class="stage-title">Hardware, fixtures, finish-out.</h2>
+        <p class="stage-body">The parts that get touched every day. Knobs, levers, hinges, bath hardware, weatherstrip — the dealer is the reason it's all on the truck at once.</p>
+        <span class="stage-tag">Hardware · Plumbing · Finish</span>
+      </div>
+      <div class="scene">
+        <div class="int-scene">
+          <div class="int-room">
+            <div class="fixture fx-shower">
+              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="10" width="80" height="80" fill="none" stroke="#1F1A17" stroke-width="2"/>
+                <line x1="10" y1="10" x2="90" y2="90" stroke="#A6432A" stroke-width="2"/>
+                <line x1="90" y1="10" x2="10" y2="90" stroke="#A6432A" stroke-width="2"/>
+                <circle cx="50" cy="50" r="14" fill="#1F1A17"/>
+                <circle cx="50" cy="50" r="6" fill="#C97C5D"/>
+              </svg>
+            </div>
+            <div class="fixture fx-vanity">
+              <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                <rect x="5" y="20" width="90" height="32" fill="#FBF8F3" stroke="#1F1A17" stroke-width="1.5"/>
+                <rect x="5" y="6" width="90" height="18" fill="none" stroke="#1F1A17" stroke-width="1.5" rx="2"/>
+                <ellipse cx="30" cy="36" rx="8" ry="3" fill="none" stroke="#1F1A17" stroke-width="1.5"/>
+                <ellipse cx="70" cy="36" rx="8" ry="3" fill="none" stroke="#1F1A17" stroke-width="1.5"/>
+                <circle cx="86" cy="14" r="2" fill="#A6432A"/>
+              </svg>
+            </div>
+            <div class="fixture fx-faucet">
+              <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                <rect x="20" y="42" width="60" height="14" fill="#FBF8F3" stroke="#1F1A17" stroke-width="1.5"/>
+                <rect x="44" y="14" width="12" height="30" fill="#1F1A17"/>
+                <path d="M40 14 Q50 4 60 14" stroke="#1F1A17" stroke-width="2" fill="none"/>
+                <circle cx="50" cy="10" r="3" fill="#A6432A"/>
+                <rect x="48" y="10" width="4" height="6" fill="#1F1A17"/>
+              </svg>
+            </div>
+            <div class="fixture fx-hardware">
+              <svg viewBox="0 0 400 30" xmlns="http://www.w3.org/2000/svg">
+                <g fill="#1F1A17">
+                  <rect x="6" y="10" width="32" height="14" rx="1"/>
+                  <circle cx="22" cy="17" r="2" fill="#FBF8F3"/>
+                  <rect x="56" y="10" width="32" height="14" rx="3"/>
+                  <circle cx="68" cy="17" r="2" fill="#A6432A"/>
+                  <rect x="106" y="10" width="32" height="14" rx="1"/>
+                  <rect x="110" y="14" width="24" height="6" fill="#FBF8F3"/>
+                  <rect x="156" y="10" width="32" height="14" rx="3"/>
+                  <circle cx="172" cy="17" r="4" fill="#FBF8F3"/>
+                  <circle x="172" cy="17" r="2" fill="#1F1A17" stroke="none"/>
+                  <rect x="206" y="10" width="32" height="14" rx="7"/>
+                  <rect x="210" y="14" width="24" height="6" fill="#A6432A"/>
+                  <rect x="256" y="10" width="32" height="14" rx="1"/>
+                  <circle cx="272" cy="17" r="5" fill="#A6432A"/>
+                  <rect x="306" y="10" width="32" height="14" rx="1"/>
+                  <line x1="312" y1="14" x2="332" y2="14" stroke="#FBF8F3" stroke-width="2"/>
+                  <line x1="312" y1="20" x2="332" y2="20" stroke="#FBF8F3" stroke-width="2"/>
+                  <rect x="356" y="10" width="32" height="14" rx="7"/>
+                  <circle cx="372" cy="17" r="3" fill="#FBF8F3"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ─── STAGE 5: FINISHED ────────────────── -->
+    <article class="stage">
+      <div class="stage-meta">
+        <div class="stage-num"><span></span>Stage 05 · The Finish</div>
+        <h2 class="stage-title">A home, from the same order.</h2>
+        <p class="stage-body">One phone call to your rep, one truck at the yard, every brand where it belongs. That's what independent rep work looks like when it's done right.</p>
+        <span class="stage-tag">10+ manufacturers · One delivery</span>
+      </div>
+      <div class="scene">
+        <div class="final-scene">
+          <div class="final-house">
+            <div class="fh-roof"></div>
+            <div class="fh-body">
+              <div class="fh-window"></div>
+              <div class="fh-window"></div>
+              <div class="fh-window"></div>
+              <div class="fh-window"></div>
+              <div class="fh-window"></div>
+              <div class="fh-door"></div>
+            </div>
+          </div>
+          <div class="badge-row">
+            <span class="badge">Lumber</span>
+            <span class="badge">Windows</span>
+            <span class="badge">Doors</span>
+            <span class="badge">Hardware</span>
+            <span class="badge">Roof</span>
+            <span class="badge">+5 more</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</div>
+</main>
+
+<section class="cta-band">
+  <div class="container">
+    <h2>Five reps. Six states. <em>One phone call.</em></h2>
+    <p>Tell us what you're building. We'll line up the lines.</p>
+    <a href="/contact.html">Talk to a rep →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">Tradition Sales · TX · OK · LA · MS · CO · FL</div>
+</footer>
+
+</body>
+</html>
