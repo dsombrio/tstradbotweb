@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!--
+  Tradition Sales — Contact page
+  Two-track form: manufacturers vs. dealers/builders.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Tradition Sales | Find Your Rep or Start a Conversation</title>
+  <meta name="description" content="Contact Tradition Sales. Find the rep who covers your territory, or send a manufacturer inquiry and we'll get back to you within two business days." />
+  <link rel="canonical" href="https://www.traditionsales.com/contact.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="brand-mark" aria-label="Tradition Sales — Home">
+      <svg class="brand-logo" viewBox="0 0 200 40" aria-hidden="true">
+        <text x="0" y="28" class="brand-logo-tradition">TRADITION</text>
+        <text x="0" y="38" class="brand-logo-sub">SALES</text>
+        <rect x="0" y="32" width="120" height="1.5" class="brand-logo-rule" />
+      </svg>
+    </a>
+    <nav class="primary-nav" aria-label="Primary">
+      <a href="manufacturers.html">For Manufacturers</a>
+      <a href="line-card.html">Line Card</a>
+      <a href="team.html">Team &amp; Coverage</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="nav-cta" aria-current="page">Contact</a>
+    </nav>
+    <button class="mobile-toggle" id="mobile-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobile-nav" hidden>
+    <a href="manufacturers.html">For Manufacturers</a>
+    <a href="line-card.html">Line Card</a>
+    <a href="team.html">Team &amp; Coverage</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="mobile-cta">Contact</a>
+  </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Contact</p>
+    <h1 class="page-title">Tell us what you're working on.</h1>
+    <p class="page-sub">
+      Manufacturer inquiry, dealer question, or just need the rep who covers your zip —
+      pick the form that fits. We respond within two business days, usually faster.
+    </p>
+  </div>
+</section>
+
+
+<!-- CONTACT INFO + TRACK SELECTOR -->
+<section class="content-section">
+  <div class="container contact-grid">
+
+    <aside class="contact-aside">
+      <h2 class="section-title">Reach us directly</h2>
+      <ul class="contact-info">
+        <li><strong>Phone</strong><a href="tel:16825006430">682.500.6430</a></li>
+        <li><strong>Email</strong><a href="mailto:info@traditionsales.com">info@traditionsales.com</a></li>
+        <li><strong>Owner</strong><a href="mailto:david@traditionsales.com">david@traditionsales.com</a></li>
+        <li><strong>Coverage</strong>TX · OK · LA · MS · CO · FL</li>
+      </ul>
+
+      <p class="aside-note">
+        Need a specific rep? <a href="team.html">See the team →</a>
+      </p>
+    </aside>
+
+    <div class="contact-forms">
+
+      <!-- FORM TRACK TOGGLE -->
+      <div class="track-toggle" role="tablist" aria-label="Choose inquiry type">
+        <button type="button" class="track-btn active" data-track="manufacturer" role="tab" aria-selected="true">
+          I'm a manufacturer
+        </button>
+        <button type="button" class="track-btn" data-track="customer" role="tab" aria-selected="false">
+          I'm a dealer / builder
+        </button>
+      </div>
+
+      <!-- MANUFACTURER FORM -->
+      <form class="contact-form" id="form-manufacturer" data-track="manufacturer" novalidate>
+        <div class="form-row">
+          <label>
+            <span>First name *</span>
+            <input type="text" name="firstName" required autocomplete="given-name" />
+          </label>
+          <label>
+            <span>Last name *</span>
+            <input type="text" name="lastName" required autocomplete="family-name" />
+          </label>
+        </div>
+
+        <label>
+          <span>Work email *</span>
+          <input type="email" name="email" required autocomplete="email" />
+        </label>
+
+        <label>
+          <span>Company *</span>
+          <input type="text" name="company" required autocomplete="organization" />
+        </label>
+
+        <label>
+          <span>Website</span>
+          <input type="url" name="website" placeholder="https://" />
+        </label>
+
+        <label>
+          <span>Product category *</span>
+          <select name="category" required>
+            <option value="">Select one…</option>
+            <option>Windows &amp; Doors</option>
+            <option>Door Parts &amp; Hardware</option>
+            <option>Roofing Materials</option>
+            <option>Bath &amp; Kitchen</option>
+            <option>Cabinet Hardware</option>
+            <option>Closet Systems</option>
+            <option>Millwork &amp; Columns</option>
+            <option>Other / adjacent</option>
+          </select>
+        </label>
+
+        <label>
+          <span>What are you trying to accomplish? *</span>
+          <textarea name="message" rows="5" required placeholder="Territory goals, target accounts, timeline, anything that helps us come prepared."></textarea>
+        </label>
+
+        <button type="submit" class="btn btn-primary">Send manufacturer inquiry →</button>
+        <p class="form-note">We respond within 2 business days.</p>
+      </form>
+
+      <!-- CUSTOMER FORM -->
+      <form class="contact-form hidden" id="form-customer" data-track="customer" novalidate>
+        <div class="form-row">
+          <label>
+            <span>First name *</span>
+            <input type="text" name="firstName" required autocomplete="given-name" />
+          </label>
+          <label>
+            <span>Last name *</span>
+            <input type="text" name="lastName" required autocomplete="family-name" />
+          </label>
+        </div>
+
+        <label>
+          <span>Email *</span>
+          <input type="email" name="email" required autocomplete="email" />
+        </label>
+
+        <label>
+          <span>Phone</span>
+          <input type="tel" name="phone" autocomplete="tel" />
+        </label>
+
+        <label>
+          <span>Company / yard *</span>
+          <input type="text" name="company" required autocomplete="organization" />
+        </label>
+
+        <label>
+          <span>ZIP code *</span>
+          <input type="text" name="zip" required inputmode="numeric" pattern="[0-9]{5}" autocomplete="postal-code" placeholder="5-digit ZIP" />
+        </label>
+
+        <label>
+          <span>What can we help you find?</span>
+          <textarea name="message" rows="4" placeholder="A specific brand, a product category, or the rep who covers your area."></textarea>
+        </label>
+
+        <button type="submit" class="btn btn-primary">Send →</button>
+        <p class="form-note">We'll route you to the right rep.</p>
+      </form>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container center">
+    <h2 class="section-title">Prefer to just call?</h2>
+    <p class="section-body" style="max-width: 600px; margin: 0 auto 2rem;">
+      682.500.6430. Office hours are 8 to 6 Central. If we miss you, we'll call back the same day.
+    </p>
+    <a href="tel:16825006430" class="btn btn-primary">Call now →</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <svg class="brand-logo brand-logo-light" viewBox="0 0 200 40" aria-hidden="true">
+        <text x="0" y="28" class="brand-logo-tradition">TRADITION</text>
+        <text x="0" y="38" class="brand-logo-sub">SALES</text>
+        <rect x="0" y="32" width="120" height="1.5" class="brand-logo-rule" />
+      </svg>
+      <p>Independent building material sales agency.<br/>Texas · Oklahoma · Louisiana · Mississippi · Colorado · Florida</p>
+    </div>
+    <div class="footer-col">
+      <h4>Visit</h4>
+      <a href="manufacturers.html">For Manufacturers</a>
+      <a href="line-card.html">Line Card</a>
+      <a href="team.html">Team &amp; Coverage</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="tel:16825006430">682.500.6430</a>
+      <a href="mailto:info@traditionsales.com">info@traditionsales.com</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>&copy; 2026 Tradition Sales, LLC. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
