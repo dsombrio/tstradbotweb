@@ -173,7 +173,12 @@
   document.querySelectorAll('object.us-map-object').forEach(function (obj) {
     obj.addEventListener('load', function () {
       try { recolorMap(obj.contentDocument, obj.parentElement); }
-      catch (e) { /* cross-origin or not loaded — fall back to default fill */ }
+      catch (e) { console.error('Map recolor failed:', e); }
     });
+    // Also try immediately in case load already fired (cached)
+    setTimeout(function() {
+      try { recolorMap(obj.contentDocument, obj.parentElement); }
+      catch (e) { /* ignore */ }
+    }, 100);
   });
 })();

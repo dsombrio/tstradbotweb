@@ -701,17 +701,18 @@ li { margin-bottom: var(--s-2); }
   color: var(--c-cream);
   letter-spacing: 0.05em;
 }
-.rep-name {
+/* Homepage teaser card only — scoped to .rep-card (not .rep-card-full) */
+.rep-card:not(.rep-card-full) .rep-name {
   font-size: 1.1rem;
   margin: var(--s-3) 0 var(--s-1);
 }
-.rep-role {
+.rep-card:not(.rep-card-full) .rep-role {
   font-size: 0.9rem;
   color: var(--c-rust);
   font-weight: 600;
   margin: 0;
 }
-.rep-contact a { color: var(--c-rust); }
+.rep-card:not(.rep-card-full) .rep-contact a { color: var(--c-rust); }
 
 /* ---------- Dual CTA ---------- */
 .dual-cta {
