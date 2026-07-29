@@ -351,12 +351,17 @@ li { margin-bottom: var(--s-2); }
 }
 @media (max-width: 640px) {
   /* On small screens, hide the bullet separators and use a more deliberate
-     2-column grid so brand names don't wrap in awkward dotted lines. */
+     2-column grid so brand names don't wrap in awkward dotted lines.
+     Allow long names to wrap so they don't overflow the viewport. */
   .hero-brand-ribbon-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--s-3) var(--s-4);
-    font-size: 0.95rem;
+    font-size: 0.85rem;
+  }
+  .hero-brand-ribbon-list span {
+    white-space: normal;
+    line-height: 1.3;
   }
   .hero-brand-ribbon-list span::after { content: none !important; }
 }
