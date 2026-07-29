@@ -590,13 +590,13 @@ li { margin-bottom: var(--s-2); }
 }
 
 /* Real US map (Simplemaps SVG) — wrapped in a fixed-aspect container.
-   SVG viewBox is 1000 x 259, so the wrapper matches that ratio (3.86:1).
-   On mobile we cap the height so it doesn't take over the screen. */
+   SVG viewBox is cropped to -5 0 320 250 to remove empty right whitespace,
+   giving a 320:250 (~1.28:1) aspect ratio. */
 .us-map-wrap {
   position: relative;
   width: 100%;
-  max-width: 1000px;
-  aspect-ratio: 1000 / 259;
+  max-width: 720px;
+  aspect-ratio: 320 / 250;
   background: var(--c-bone);
   border-radius: var(--radius);
   overflow: hidden;

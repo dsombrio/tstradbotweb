@@ -117,17 +117,16 @@
   const COVERED = new Set(['USTX', 'USOK', 'USLA', 'USMS', 'USCO', 'USFL']);
   // Approximate state label anchors in the Simplemaps SVG viewBox (1000 x 559 with AK/HI insets).
   // These were measured from the rendered map, not parsed from path data.
-  // Simplemaps SVG viewBox is 1000 x 259 but the actual contiguous US is
-  // squashed into roughly x=160-300, y=20-225 (a small portion of the
-  // viewBox). AK sits at x=0-110, HI at x=20-70, y=226-247.
-  // Label anchors below were calibrated from path centroids.
+  // Simplemaps SVG viewBox is cropped to -5 0 320 250 to focus on actual
+  // content (AK/HI insets + contiguous US). Path centroids are in this
+  // cropped coordinate system.
   const LABEL_POS = {
-    USTX: { x: 220, y: 220 },
-    USOK: { x: 224, y: 207 },
-    USLA: { x: 244, y: 220 },
-    USMS: { x: 248, y: 215 },
-    USCO: { x: 205, y: 194 },
-    USFL: { x: 265, y: 230 },
+    USTX: { x: 220, y: 215 },
+    USOK: { x: 224, y: 200 },
+    USLA: { x: 244, y: 215 },
+    USMS: { x: 248, y: 210 },
+    USCO: { x: 205, y: 188 },
+    USFL: { x: 265, y: 225 },
   };
   const SHORT_LABEL = { USTX: 'TX', USOK: 'OK', USLA: 'LA', USMS: 'MS', USCO: 'CO', USFL: 'FL' };
 
