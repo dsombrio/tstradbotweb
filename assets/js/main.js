@@ -111,22 +111,62 @@
      inject a <style> tag that recolors non-covered states to muted bone,
      and covered states (TX, OK, LA, MS, CO, FL) to the brand rust.
      Hovering covered states brightens to clay.
+     Adds overlay state labels for covered states at SVG-native coords
+     so they don't depend on CSS overlay positioning.
   -------------------------------------------------------- */
   const COVERED = new Set(['USTX', 'USOK', 'USLA', 'USMS', 'USCO', 'USFL']);
+  // Approximate state label anchors in the Simplemaps SVG viewBox (1000 x 559 with AK/HI insets).
+  // These were measured from the rendered map, not parsed from path data.
+  const LABEL_POS = {
+    USTX: { x: 480, y: 470 },
+    USOK: { x: 510, y: 380 },
+    USLA: { x: 580, y: 525 },
+    USMS: { x: 615, y: 470 },
+    USCO: { x: 320, y: 320 },
+    USFL: { x: 770, y: 575 },
+  };
+  const SHORT_LABEL = { USTX: 'TX', USOK: 'OK', USLA: 'LA', USMS: 'MS', USCO: 'CO', USFL: 'FL' };
 
   function recolorMap(svgDoc, host) {
     if (!svgDoc) return;
-    const style = svgDoc.createElementNS('http://www.w3.org/2000/svg', 'style');
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    const style = svgDoc.createElementNS(SVG_NS, 'style');
     style.textContent = `
-      path[id^="US"] { fill: #E8E1D6 !important; transition: fill 0.15s ease; }
+      path[id^="US"] { fill: #E8E1D6 !important; transition: fill 0.18s ease; stroke: #FFFFFF; stroke-width: 0.4; }
       path[id="USTX"], path[id="USOK"], path[id="USLA"],
       path[id="USMS"], path[id="USCO"], path[id="USFL"] { fill: #A6432A !important; stroke: #FBF8F3 !important; stroke-width: 0.8 !important; }
       path[id="USTX"]:hover, path[id="USOK"]:hover, path[id="USLA"]:hover,
       path[id="USMS"]:hover, path[id="USCO"]:hover, path[id="USFL"]:hover { fill: #C97C5D !important; }
       path[id="USAK"] { fill: #D9D0C2 !important; opacity: 0.4; }
+      path[id="USHI"] { fill: #D9D0C2 !important; opacity: 0.4; }
+      .ts-state-label {
+        font-family: Georgia, 'Fraunces', serif;
+        font-weight: 600;
+        font-size: 22px;
+        fill: #FBF8F3;
+        text-anchor: middle;
+        pointer-events: none;
+        paint-order: stroke;
+        stroke: #1F1A17;
+        stroke-width: 3;
+        stroke-linejoin: round;
+      }
     `;
     const svgRoot = svgDoc.documentElement;
     svgRoot.insertBefore(style, svgRoot.firstChild);
+
+    // Append SVG-native labels for covered states
+    Object.keys(LABEL_POS).forEach(function (id) {
+      const pos = LABEL_POS[id];
+      const text = svgDoc.createElementNS(SVG_NS, 'text');
+      text.setAttribute('x', pos.x);
+      text.setAttribute('y', pos.y);
+      text.setAttribute('class', 'ts-state-label');
+      text.setAttribute('id', 'ts-label-' + id);
+      text.textContent = SHORT_LABEL[id];
+      svgRoot.appendChild(text);
+    });
+
     host.classList.add('us-map-loaded');
   }
 
