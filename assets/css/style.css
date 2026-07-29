@@ -334,7 +334,7 @@ li { margin-bottom: var(--s-2); }
 .hero-brand-ribbon-list {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--s-6);
+  gap: 0 var(--s-5);
   align-items: center;
   font-family: var(--f-display);
   font-weight: 500;
@@ -345,9 +345,21 @@ li { margin-bottom: var(--s-2); }
 .hero-brand-ribbon-list span { white-space: nowrap; }
 .hero-brand-ribbon-list span:not(:last-child)::after {
   content: "·";
-  margin-left: var(--s-6);
+  margin-left: var(--s-5);
   color: var(--c-rust);
   opacity: 0.6;
+}
+@media (max-width: 640px) {
+  /* On small screens, hide the bullet separators and use a more deliberate
+     2-column grid so brand names don't wrap in awkward dotted lines. */
+  .hero-brand-ribbon-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-3) var(--s-4);
+    font-size: 0.95rem;
+  }
+  .hero-brand-ribbon-list span::after { content: none !important; }
+}
 }
 
 /* ---------- Stats Bar ---------- */
@@ -449,10 +461,16 @@ li { margin-bottom: var(--s-2); }
 }
 .logo-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: var(--s-5);
   margin-top: var(--s-7);
   align-items: center;
+}
+@media (max-width: 480px) {
+  .logo-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--s-3);
+  }
 }
 .logo-item {
   background: var(--c-cream);
@@ -571,14 +589,18 @@ li { margin-bottom: var(--s-2); }
   max-height: 480px;
 }
 
-/* Real US map (Simplemaps SVG) — wrapped in a fixed-aspect container. */
+/* Real US map (Simplemaps SVG) — wrapped in a fixed-aspect container.
+   SVG viewBox is 1000 x 259, so the wrapper matches that ratio (3.86:1).
+   On mobile we cap the height so it doesn't take over the screen. */
 .us-map-wrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 1000 / 559;
+  max-width: 1000px;
+  aspect-ratio: 1000 / 259;
   background: var(--c-bone);
   border-radius: var(--radius);
   overflow: hidden;
+  margin: 0 auto;
 }
 .us-map-object {
   position: absolute;
