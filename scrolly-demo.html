@@ -338,7 +338,8 @@ html { timeline-scope: --tl-stage-1, --tl-stage-2, --tl-stage-3, --tl-stage-4, -
 @supports not ((animation-timeline: scroll()) and (animation-range: 0% 100%)){
   /* Make all layers visible — no animation but content is still readable */
   .ts-layer{ opacity: 1 !important; }
-  .ts-stage-caption{ opacity: 1 !important; }
+  .ts-stage-caption{ display: none; }
+  .ts-stage-caption.ts-cap-1{ display: block; }
 }
 
 /* ============ REDUCED MOTION ============ */
@@ -349,7 +350,8 @@ html { timeline-scope: --tl-stage-1, --tl-stage-2, --tl-stage-3, --tl-stage-4, -
     transition-duration: 0.001ms !important;
   }
   .ts-layer{ opacity: 1; }
-  .ts-stage-caption{ opacity: 1; }
+  .ts-stage-caption{ display: none; }
+  .ts-stage-caption.ts-cap-1{ display: block; }
 }
 </style>
 </head>
