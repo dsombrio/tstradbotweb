@@ -101,9 +101,11 @@ body{
 }
 .ts-stage{
   position: relative;
-  width: 100%;
-  max-width: 460px;
+  width: min(100%, 460px);
+  max-height: 460px;
   aspect-ratio: 1 / 1;
+  display: grid;
+  flex-shrink: 0;
 }
 
 /* Each layer is a separate SVG/div, stacked via grid. Default invisible. */
