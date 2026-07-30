@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tradition Sales — From Yard to Home (Scrollytelling)</title>
+<style>
+:root{
+  --c-rust:#A6432A;
+  --c-rust-soft:#C97C5D;
+  --c-cream:#FBF8F3;
+  --c-bone:#F4EFE8;
+  --c-charcoal:#1F1A17;
+  --c-charcoal-soft:#5A4F47;
+  --c-line:#E4DCD0;
+  --c-roof:#4A3F36;
+  --c-window-frame:#FBF8F3;
+  --c-tape:#D8C9A8;
+  --c-lumber:#C49A6C;
+  --c-lumber-dark:#8B6840;
+  --c-shingle:#3D3530;
+  --c-siding:#D9C7A8;
+  --c-warm:#F4D08A;
+  --ease-out: cubic-bezier(.16,.84,.44,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  background: var(--c-cream);
+  color: var(--c-charcoal);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.serif{ font-family: "Georgia", "Times New Roman", serif; }
+
+/* ============ HERO ============ */
+.ts-hero{
+  background: linear-gradient(180deg, var(--c-charcoal) 0%, #2a2520 100%);
+  color: var(--c-cream);
+  padding: 88px 24px 72px;
+  text-align: center;
+}
+.ts-hero .eyebrow{
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-rust-soft);
+  margin-bottom: 18px;
+}
+.ts-hero h1{
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 5.5vw, 3.6rem);
+  line-height: 1.1;
+  font-weight: 400;
+  max-width: 18ch;
+  margin: 0 auto 22px;
+}
+.ts-hero h1 em{ font-style: italic; color: var(--c-rust-soft); }
+.ts-hero p{
+  font-size: clamp(0.98rem, 1.8vw, 1.1rem);
+  color: rgba(251,248,243,.78);
+  max-width: 36rem;
+  margin: 0 auto;
+}
+.ts-hero .scroll-hint{
+  display: inline-block;
+  margin-top: 36px;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(251,248,243,.5);
+  border-top: 1px solid rgba(251,248,243,.25);
+  padding-top: 12px;
+}
+
+/* ============ SCROLLY CONTAINER ============ */
+.ts-scrolly{
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  gap: 0;
+}
+
+/* sticky visual column */
+.ts-visual-col{
+  position: relative;
+}
+.ts-sticky-visual{
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.ts-stage{
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  aspect-ratio: 1 / 1;
+}
+
+/* Each layer is a separate SVG/div, stacked via grid. Default invisible. */
+.ts-layer{
+  grid-area: 1 / 1;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out);
+  pointer-events: none;
+}
+.ts-layer.active{ opacity: 1; }
+
+.ts-svg{ width: 100%; height: 100%; display: block; }
+
+/* caption underneath visual */
+.ts-stage-caption{
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-charcoal-soft);
+  background: rgba(251,248,243,.85);
+  backdrop-filter: blur(4px);
+  padding: 6px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* text panels column */
+.ts-panels-col{
+  position: relative;
+  padding: 12vh 0 12vh 8%;
+}
+.ts-panel{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 0;
+}
+.ts-panel + .ts-panel{ border-top: 1px solid var(--c-line); }
+
+.ts-stage-num{
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--c-rust);
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+.ts-panel h2{
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.65rem, 3vw, 2.2rem);
+  line-height: 1.15;
+  font-weight: 400;
+  margin-bottom: 18px;
+  color: var(--c-charcoal);
+  max-width: 22ch;
+}
+.ts-panel p.lede{
+  font-size: 1.05rem;
+  color: var(--c-charcoal-soft);
+  max-width: 36ch;
+  margin-bottom: 22px;
+}
+.ts-products{
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 36ch;
+}
+.ts-products li{
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  color: var(--c-charcoal-soft);
+  background: var(--c-bone);
+  border: 1px solid var(--c-line);
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+
+/* ============ SCROLL-DRIVEN ANIMATIONS ============ */
+/* Each panel declares a view-timeline. The layers' opacity is animated along the timeline. */
+.ts-panel:nth-of-type(1){ view-timeline: --tl-stage-1 block; }
+.ts-panel:nth-of-type(2){ view-timeline: --tl-stage-2 block; }
+.ts-panel:nth-of-type(3){ view-timeline: --tl-stage-3 block; }
+.ts-panel:nth-of-type(4){ view-timeline: --tl-stage-4 block; }
+.ts-panel:nth-of-type(5){ view-timeline: --tl-stage-5 block; }
+
+html { timeline-scope: --tl-stage-1, --tl-stage-2, --tl-stage-3, --tl-stage-4, --tl-stage-5; }
+
+/* Layer 1: visible during panel 1's mid range */
+.ts-layer-1{
+  animation: layerShow linear forwards;
+  animation-timeline: --tl-stage-1;
+  animation-range: cover 30% cover 70%;
+}
+.ts-layer-2{
+  animation: layerShow linear forwards;
+  animation-timeline: --tl-stage-2;
+  animation-range: cover 30% cover 70%;
+}
+.ts-layer-3{
+  animation: layerShow linear forwards;
+  animation-timeline: --tl-stage-3;
+  animation-range: cover 30% cover 70%;
+}
+.ts-layer-4{
+  animation: layerShow linear forwards;
+  animation-timeline: --tl-stage-4;
+  animation-range: cover 30% cover 70%;
+}
+.ts-layer-5{
+  animation: layerShow linear forwards;
+  animation-timeline: --tl-stage-5;
+  animation-range: cover 30% cover 70%;
+}
+
+@keyframes layerShow{
+  0%   { opacity: 0; }
+  40%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+/* Stage caption text sync */
+.ts-stage-caption{
+  animation: captionSwap linear forwards;
+}
+.ts-cap-1{
+  animation-timeline: --tl-stage-1;
+  animation-range: cover 30% cover 70%;
+}
+.ts-cap-2{
+  animation-timeline: --tl-stage-2;
+  animation-range: cover 30% cover 70%;
+}
+.ts-cap-3{
+  animation-timeline: --tl-stage-3;
+  animation-range: cover 30% cover 70%;
+}
+.ts-cap-4{
+  animation-timeline: --tl-stage-4;
+  animation-range: cover 30% cover 70%;
+}
+.ts-cap-5{
+  animation-timeline: --tl-stage-5;
+  animation-range: cover 30% cover 70%;
+}
+
+@keyframes capShow{
+  0%{opacity:0}
+  40%{opacity:1}
+  100%{opacity:1}
+}
+.ts-cap-1,.ts-cap-2,.ts-cap-3,.ts-cap-4,.ts-cap-5{
+  animation-name: capShow;
+  opacity:0;
+}
+
+/* ============ CTA + FOOTER ============ */
+.ts-cta{
+  background: linear-gradient(180deg, #2a2520 0%, var(--c-charcoal) 100%);
+  color: var(--c-cream);
+  text-align: center;
+  padding: 80px 24px;
+}
+.ts-cta h2{
+  font-family: Georgia, serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  line-height: 1.15;
+  font-weight: 400;
+  max-width: 22ch;
+  margin: 0 auto 14px;
+}
+.ts-cta h2 em{ font-style: italic; color: var(--c-rust-soft); }
+.ts-cta p{
+  color: rgba(251,248,243,.7);
+  max-width: 32rem;
+  margin: 0 auto 28px;
+}
+.ts-cta .btn{
+  display: inline-block;
+  background: var(--c-rust);
+  color: var(--c-cream);
+  text-decoration: none;
+  padding: 14px 32px;
+  border-radius: 4px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-size: 0.95rem;
+}
+.ts-cta .btn:hover{ background: var(--c-rust-soft); }
+
+.ts-footer{
+  background: var(--c-charcoal);
+  color: rgba(251,248,243,.5);
+  text-align: center;
+  padding: 28px 24px;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ============ MOBILE ============ */
+@media (max-width: 880px){
+  .ts-scrolly{
+    grid-template-columns: 1fr;
+  }
+  .ts-visual-col{
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: var(--c-cream);
+    height: 60vh;
+  }
+  .ts-sticky-visual{
+    position: relative;
+    height: 60vh;
+    padding: 16px;
+  }
+  .ts-stage{ max-width: 320px; }
+  .ts-panels-col{ padding: 24px 0; }
+  .ts-panel{ min-height: auto; padding: 48px 0; }
+}
+
+/* ============ FALLBACK (no native scroll-driven) ============ */
+@supports not ((animation-timeline: scroll()) and (animation-range: 0% 100%)){
+  /* Make all layers visible — no animation but content is still readable */
+  .ts-layer{ opacity: 1 !important; }
+  .ts-stage-caption{ opacity: 1 !important; }
+}
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .ts-layer{ opacity: 1; }
+  .ts-stage-caption{ opacity: 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== HERO ===================== -->
+<header class="ts-hero">
+  <div class="eyebrow">Tradition Sales</div>
+  <h1>Every product we represent, <em>in its place.</em></h1>
+  <p>Scroll to see how a bundle of lumber on Monday becomes a finished home by the end of the season — and why that matters to your project.</p>
+  <div class="scroll-hint">↓ Scroll</div>
+</header>
+
+<!-- ===================== SCROLLYTELLING ===================== -->
+<section class="ts-scrolly">
+
+  <!-- LEFT: sticky visual -->
+  <div class="ts-visual-col">
+    <div class="ts-sticky-visual">
+      <div class="ts-stage">
+
+        <!-- LAYER 1: foundation + framing -->
+        <div class="ts-layer ts-layer-1">
+          <svg class="ts-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <!-- foundation slab -->
+            <rect x="40" y="320" width="320" height="20" fill="#5A4F47"/>
+            <rect x="40" y="320" width="320" height="6" fill="#3A332D"/>
+            <!-- studs (vertical 2x4s) -->
+            <g fill="var(--c-lumber)" stroke="var(--c-lumber-dark)" stroke-width="1.5">
+              <rect x="50"  y="160" width="14" height="160"/>
+              <rect x="90"  y="160" width="14" height="160"/>
+              <rect x="130" y="160" width="14" height="160"/>
+              <rect x="170" y="160" width="14" height="160"/>
+              <rect x="210" y="160" width="14" height="160"/>
+              <rect x="250" y="160" width="14" height="160"/>
+              <rect x="290" y="160" width="14" height="160"/>
+              <rect x="330" y="160" width="14" height="160"/>
+            </g>
+            <!-- top plate -->
+            <rect x="40" y="150" width="320" height="14" fill="var(--c-lumber-dark)"/>
+            <!-- bottom plate -->
+            <rect x="40" y="316" width="320" height="8" fill="var(--c-lumber-dark)"/>
+            <!-- window/door headers (openings marked) -->
+            <rect x="105" y="150" width="60"  height="10" fill="var(--c-lumber-dark)"/>
+            <rect x="190" y="150" width="80"  height="10" fill="var(--c-lumber-dark)"/>
+            <rect x="295" y="150" width="55"  height="10" fill="var(--c-lumber-dark)"/>
+            <!-- diagonal bracing -->
+            <line x1="55" y1="170" x2="95" y2="310" stroke="var(--c-lumber-dark)" stroke-width="2"/>
+            <line x1="295" y1="170" x2="335" y2="310" stroke="var(--c-lumber-dark)" stroke-width="2"/>
+          </svg>
+        </div>
+
+        <!-- LAYER 2: windows + doors installed -->
+        <div class="ts-layer ts-layer-2">
+          <svg class="ts-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <!-- windows (translucent glass rectangles) -->
+            <g>
+              <rect x="105" y="170" width="60"  height="60" fill="#A8C8D8" stroke="var(--c-charcoal)" stroke-width="2"/>
+              <line x1="135" y1="170" x2="135" y2="230" stroke="var(--c-charcoal)" stroke-width="1.5"/>
+              <line x1="105" y1="200" x2="165" y2="200" stroke="var(--c-charcoal)" stroke-width="1.5"/>
+            </g>
+            <g>
+              <rect x="190" y="170" width="80"  height="80" fill="#A8C8D8" stroke="var(--c-charcoal)" stroke-width="2"/>
+              <line x1="230" y1="170" x2="230" y2="250" stroke="var(--c-charcoal)" stroke-width="1.5"/>
+              <line x1="190" y1="210" x2="270" y2="210" stroke="var(--c-charcoal)" stroke-width="1.5"/>
+            </g>
+            <g>
+              <rect x="295" y="170" width="55"  height="55" fill="#A8C8D8" stroke="var(--c-charcoal)" stroke-width="2"/>
+              <line x1="322" y1="170" x2="322" y2="225" stroke="var(--c-charcoal)" stroke-width="1.5"/>
+            </g>
+            <!-- door (with frame + handle) -->
+            <g>
+              <rect x="225" y="240" width="50"  height="80" fill="var(--c-charcoal-soft, #5A4F47)" stroke="var(--c-charcoal)" stroke-width="2"/>
+              <rect x="232" y="248" width="36"  height="68" fill="#6E5F52"/>
+              <circle cx="263" cy="282" r="2.5" fill="var(--c-rust-soft, #C97C5D)"/>
+            </g>
+          </svg>
+        </div>
+
+        <!-- LAYER 3: roof -->
+        <div class="ts-layer ts-layer-3">
+          <svg class="ts-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <!-- roof triangle -->
+            <polygon points="200,40 360,150 40,150" fill="var(--c-roof)"/>
+            <!-- shingles texture -->
+            <g fill="var(--c-shingle)" stroke="var(--c-charcoal)" stroke-width="0.5">
+              <polygon points="200,50 280,150 200,150"/>
+              <polygon points="260,90 350,150 280,150"/>
+              <polygon points="140,90 200,150 120,150"/>
+              <polygon points="80,110 180,150 100,150"/>
+              <polygon points="200,40 200,150 160,150"/>
+              <polygon points="200,40 240,150 200,150"/>
+            </g>
+            <!-- roof edge -->
+            <line x1="40" y1="150" x2="360" y2="150" stroke="var(--c-charcoal)" stroke-width="3"/>
+            <!-- ridge cap -->
+            <line x1="200" y1="40" x2="200" y2="150" stroke="var(--c-shingle)" stroke-width="3"/>
+          </svg>
+        </div>
+
+        <!-- LAYER 4: interior warm light through windows -->
+        <div class="ts-layer ts-layer-4">
+          <svg class="ts-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <!-- warm glow rectangles inside the windows from layer 2 -->
+            <rect x="105" y="170" width="60"  height="60" fill="var(--c-warm)" opacity="0.75"/>
+            <rect x="190" y="170" width="80"  height="80" fill="var(--c-warm)" opacity="0.75"/>
+            <rect x="295" y="170" width="55"  height="55" fill="var(--c-warm)" opacity="0.75"/>
+            <rect x="232" y="248" width="36"  height="68" fill="var(--c-warm)" opacity="0.4"/>
+          </svg>
+        </div>
+
+        <!-- LAYER 5: finished exterior (siding, full color) -->
+        <div class="ts-layer ts-layer-5">
+          <svg class="ts-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <!-- siding body (covers studs) -->
+            <rect x="40" y="150" width="320" height="170" fill="var(--c-siding)"/>
+            <!-- siding horizontal lines -->
+            <g stroke="var(--c-lumber-dark)" stroke-width="0.8" opacity="0.45">
+              <line x1="40" y1="180" x2="360" y2="180"/>
+              <line x1="40" y1="205" x2="360" y2="205"/>
+              <line x1="40" y1="230" x2="360" y2="230"/>
+              <line x1="40" y1="255" x2="360" y2="255"/>
+              <line x1="40" y1="280" x2="360" y2="280"/>
+              <line x1="40" y1="305" x2="360" y2="305"/>
+            </g>
+            <!-- window trim (over windows, crisp white) -->
+            <g fill="none" stroke="var(--c-cream)" stroke-width="3">
+              <rect x="103" y="168" width="64"  height="64"/>
+              <rect x="188" y="168" width="84"  height="84"/>
+              <rect x="293" y="168" width="59"  height="59"/>
+              <rect x="223" y="238" width="54"  height="84"/>
+            </g>
+            <!-- door (refined) -->
+            <rect x="225" y="240" width="50" height="80" fill="var(--c-rust)" stroke="var(--c-charcoal)" stroke-width="2"/>
+            <rect x="232" y="248" width="36" height="68" fill="#8A3621"/>
+            <circle cx="263" cy="282" r="2.5" fill="var(--c-cream)"/>
+            <!-- foundation -->
+            <rect x="40" y="320" width="320" height="20" fill="#3A332D"/>
+            <!-- porch light -->
+            <circle cx="285" cy="248" r="3" fill="var(--c-warm)" opacity="0.9"/>
+          </svg>
+        </div>
+
+        <!-- caption (5 captions stacked, opacity swaps) -->
+        <div class="ts-stage-caption ts-cap-1">From the yard</div>
+        <div class="ts-stage-caption ts-cap-2">From the shop</div>
+        <div class="ts-stage-caption ts-cap-3">From the roof</div>
+        <div class="ts-stage-caption ts-cap-4">From the inside</div>
+        <div class="ts-stage-caption ts-cap-5">From the same order</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: 5 text panels -->
+  <div class="ts-panels-col">
+
+    <article class="ts-panel">
+      <div class="ts-stage-num">Stage 01</div>
+      <h2>Lumber hits the lot.</h2>
+      <p class="lede">Framing lumber, OSB, LVL, I-joists, engineered beams. Delivered banded and tagged, ready to stand up.</p>
+      <ul class="ts-products">
+        <li>Framing lumber</li><li>OSB</li><li>LVL</li><li>I-joists</li><li>Engineered beams</li>
+      </ul>
+    </article>
+
+    <article class="ts-panel">
+      <div class="ts-stage-num">Stage 02</div>
+      <h2>Windows &amp; doors, sealed tight.</h2>
+      <p class="lede">Wrapped, taped, and protected from the weather. Vinyl, wood, clad; entry, patio, and the components that finish them out.</p>
+      <ul class="ts-products">
+        <li>Vinyl windows</li><li>Wood windows</li><li>Clad windows</li><li>Entry doors</li><li>Patio doors</li><li>Components</li>
+      </ul>
+    </article>
+
+    <article class="ts-panel">
+      <div class="ts-stage-num">Stage 03</div>
+      <h2>Shingles go on. Weather stays out.</h2>
+      <p class="lede">Roofing, underlayment, flashing, ventilation — every layer between the sheathing and the sky, from manufacturers who back their warranties.</p>
+      <ul class="ts-products">
+        <li>Shingles</li><li>Underlayment</li><li>Flashing</li><li>Ridge vent</li><li>Roof accessories</li>
+      </ul>
+    </article>
+
+    <article class="ts-panel">
+      <div class="ts-stage-num">Stage 04</div>
+      <h2>Hardware, fixtures, finish-out.</h2>
+      <p class="lede">Door hardware, cabinet pulls, plumbing fixtures, bath accessories. The things the homeowner touches every day — sourced and staged for your trim-out.</p>
+      <ul class="ts-products">
+        <li>Door hardware</li><li>Cabinet hardware</li><li>Plumbing fixtures</li><li>Bath accessories</li><li>Finish trim</li>
+      </ul>
+    </article>
+
+    <article class="ts-panel">
+      <div class="ts-stage-num">Stage 05</div>
+      <h2>A home, from the same order.</h2>
+      <p class="lede">Ten manufacturers. One delivery schedule. One rep who knows the project. Five reps across six states, one phone call away.</p>
+      <ul class="ts-products">
+        <li>10+ manufacturers</li><li>5 reps</li><li>6 states</li><li>One phone call</li>
+      </ul>
+    </article>
+
+  </div>
+</section>
+
+<!-- ===================== CTA ===================== -->
+<section class="ts-cta">
+  <h2>Five reps. Six states. <em>One phone call.</em></h2>
+  <p>Talk to a rep today. We'll help you spec, source, and stage every product on this list — and the ones we haven't listed yet.</p>
+  <a href="/contact.html" class="btn">Talk to a rep →</a>
+</section>
+
+<footer class="ts-footer">
+  Tradition Sales · TX · OK · LA · MS · CO · FL
+</footer>
+
+<!-- ============ OPTIONAL JS FALLBACK ============ -->
+<!-- For browsers without native CSS scroll-driven animations, this small IntersectionObserver
+     activates layers as their panels come into view. ~600 bytes, no dependencies. -->
+<script>
+(function(){
+  if (CSS.supports('(animation-timeline: scroll()) and (animation-range: 0% 100%)')) {
+    return; // native support, no JS needed
+  }
+  var panels = document.querySelectorAll('.ts-panel');
+  var layers = document.querySelectorAll('.ts-layer');
+  var captions = document.querySelectorAll('.ts-stage-caption');
+  if (!panels.length || !('IntersectionObserver' in window)) return;
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      var idx = Array.prototype.indexOf.call(panels, e.target);
+      if (idx < 0) return;
+      // activate matching layer and caption
+      layers.forEach(function(l){ l.classList.remove('active'); });
+      captions.forEach(function(c){ c.classList.remove('active'); });
+      var layer = document.querySelector('.ts-layer-' + (idx + 1));
+      var cap = document.querySelector('.ts-cap-' + (idx + 1));
+      if (layer) layer.classList.add('active');
+      if (cap) cap.classList.add('active');
+    });
+  }, { threshold: [0.4] });
+
+  panels.forEach(function(p){ io.observe(p); });
+  // initially show first
+  var firstL = document.querySelector('.ts-layer-1');
+  var firstC = document.querySelector('.ts-cap-1');
+  if (firstL) firstL.classList.add('active');
+  if (firstC) firstC.classList.add('active');
+})();
+</script>
+
+</body>
+</html>
